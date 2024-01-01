@@ -13,6 +13,12 @@ while True:
     try:
         counter += 1
         
+        if len(check_cloud >= 100):
+            check_cloud = check_cloud[-1]
+            
+        if counter >= 100:
+            counter = 1
+            
         if counter == 1:
             first_connection, second_connection = run_server(info.USERNAME, info.PASSWORD, info.SERVER, info.PATH)
             
@@ -34,6 +40,7 @@ while True:
                         if new_last_close < new_lower:
                             if check_cloud[-1] == "above":
                                 price_position = "Above the cloud"
+                                check_cloud.append("below")
                                 change_direction = True
                                 break
                             else:
@@ -49,6 +56,7 @@ while True:
                 elif last_close < lower:
                     if check_cloud[-1] == "above":
                         price_position = "Above the cloud"
+                        check_cloud.append("below")
                         change_direction = True
                     else:
                         pass
@@ -88,6 +96,7 @@ while True:
                         elif new_last_close > new_upper:
                             if check_cloud[-1] == "below":
                                 price_position = "below the cloud"
+                                check_cloud.append("above")
                                 change_direction = True
                                 break
                             else:
@@ -100,6 +109,7 @@ while True:
                 elif last_close > upper:
                     if check_cloud[-1] == "below":
                         price_position = "below the cloud"
+                        check_cloud.append("above")
                         change_direction = True
                     else:
                         pass
