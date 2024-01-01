@@ -3,6 +3,7 @@ os.system("cls")
 from mt5_lib import *
 from strategy import *
 import time
+from error_alert import error_sms_alert
 import info
 
 check_cloud = ["nutral"]
@@ -13,7 +14,7 @@ while True:
         counter += 1
         
         if counter == 1:
-            first_connection, second_connection = run_server(info.username, info.password, info.server, info.path)
+            first_connection, second_connection = run_server(info.USERNAME, info.PASSWORD, info.SERVER, info.PATH)
             
             if not first_connection or not second_connection:
                 raise ValueError("Couldn't connect to server ...")
@@ -45,6 +46,12 @@ while True:
                         
                 elif last_close > upper:
                     check_cloud.append("above")
+                elif last_close < lower:
+                    if check_cloud[-1] == "above":
+                        price_position = "Above the cloud"
+                        change_direction = True
+                    else:
+                        pass
                     
                 if change_direction:
                     break
@@ -90,6 +97,12 @@ while True:
                         
                 elif last_close < lower:
                     check_cloud.append("below")
+                elif last_close > upper:
+                    if check_cloud[-1] == "below":
+                        price_position = "below the cloud"
+                        change_direction = True
+                    else:
+                        pass
                     
                 if change_direction:
                     break
@@ -111,10 +124,13 @@ while True:
                     
                 time.sleep(5 * 60)
                 
-        time.sleep(5 * 60)
-        
     except Exception as e:
+        message = "مشکلی برای ربات پیش اومده"
+        response = error_sms_alert(info.API_KEY, message)
+        print("Error alert sent.")
+        
         print(f"Error: {e}")
-        counter = 0
-        time.sleep(30)
+        
+    else:
+        time.sleep(5 * 60)
         
