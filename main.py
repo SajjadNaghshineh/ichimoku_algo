@@ -14,10 +14,10 @@ while True:
         counter += 1
         
         if len(check_cloud >= 100):
-            check_cloud = check_cloud[-1]
+            check_cloud = list(check_cloud[-1])
             
         if counter >= 100:
-            counter = 1
+            counter = 2
             
         if counter == 1:
             first_connection, second_connection = run_server(info.USERNAME, info.PASSWORD, info.SERVER, info.PATH)
