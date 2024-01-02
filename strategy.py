@@ -26,7 +26,7 @@ def shadow_condition(df, price_position, price):
     
     if price_position == "Below the cloud":
         shadows = []
-        for i in range(9, 0, -1):
+        for i in range(8, 0, -1):
             df_part = df.iloc[idx-i][["high", "close", "ISA_9", "ISB_26", "ema_21", "ema_50", "ema_100"]]
             max_value = df_part[["ISA_9", "ISB_26", "ema_21", "ema_50", "ema_100"]].max()
             
@@ -40,7 +40,7 @@ def shadow_condition(df, price_position, price):
             
     elif price_position == "Above the cloud":
         shadows = []
-        for i in range(9, 0, -1):
+        for i in range(8, 0, -1):
             df_part = df.iloc[idx-i][["low", "close", "ISA_9", "ISB_26", "ema_21", "ema_50", "ema_100"]]
             min_value = df_part[["ISA_9", "ISB_26", "ema_21", "ema_50", "ema_100"]].min()
             

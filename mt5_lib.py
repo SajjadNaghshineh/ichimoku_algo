@@ -32,6 +32,4 @@ def retreive_data(symbol="GBPUSD", timeframe="M5"):
     df['ema_50'] = ta.ema(df['close'], length=50)
     df['ema_100'] = ta.ema(df['close'], length=100)
     
-    df = df.iloc[100::]
-    
     return df

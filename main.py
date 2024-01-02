@@ -13,7 +13,7 @@ while True:
     try:
         counter += 1
         
-        if len(check_cloud >= 100):
+        if len(check_cloud) >= 100:
             check_cloud = list(check_cloud[-1])
             
         if counter >= 100:
@@ -135,12 +135,11 @@ while True:
                 time.sleep(5 * 60)
                 
     except Exception as e:
+        print(f"Error: {e}")
+        
         message = "مشکلی برای ربات پیش اومده"
         response = error_sms_alert(info.API_KEY, message)
         print("Error alert sent.")
-        
-        print(f"Error: {e}")
-        
     else:
         time.sleep(5 * 60)
         
