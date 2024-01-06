@@ -1,4 +1,5 @@
 from utils import format_number
+from mt5_lib import retreive_data
 
 def find_price_position(df):
     price = df.iloc[-1]["close"]
@@ -121,7 +122,7 @@ def sl_tp_calculation(df, price_position):
         tp = abs(last_moving - last_close)
         tp = last_close - tp
         
-    return sl, tp
+    return round(sl, 4), round(tp, 4)
 
 def cloud_area():
     df = retreive_data()
