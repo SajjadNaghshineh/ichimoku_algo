@@ -4,6 +4,8 @@ from mt5_lib import *
 from strategy import *
 from manage_orders import *
 import time
+import datetime
+import pytz
 from error_alert import error_sms_alert
 import info
 
@@ -13,6 +15,12 @@ counter = 0
 while True:
     try:
         counter += 1
+        
+        today = datetime.datetime.today()
+        if today.weekday() in [5, 6]:
+            counter = 0
+            time.sleep(5 * 60)
+            continue
         
         if len(check_cloud) >= 100:
             check_cloud = list(check_cloud[-1])
@@ -148,9 +156,13 @@ while True:
                 time.sleep(5 * 60)
                 
     except Exception as e:
-        print(f"Error: {e}")
+        tz = pytz.timezone("Asia/Tehran")
+        now = datetime.datetime.now(tz)
+        now = now.strftime("%Y-%m-%d %H:%M:%S")
         
-        message = "مشکلی برای ربات پیش اومده"
+        print(f"Error: {e} at {now}")
+        
+        message = f"در ساعت {now} مشکلی برای ربات پیش اومده"
         response = error_sms_alert(info.API_KEY, message)
         print("Error alert sent.")
     else:
