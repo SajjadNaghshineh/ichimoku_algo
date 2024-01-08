@@ -37,11 +37,19 @@ while True:
             
         if price_position == "Below the cloud":
             while True:
+                today = datetime.datetime.today()
+                if today.weekday() in [5, 6]:
+                    raise ValueError("Today market is close")
+                
                 change_direction = False
                 lower, upper, last_close = cloud_area()
                 
                 if lower < last_close < upper:
                     while True:
+                        today = datetime.datetime.today()
+                        if today.weekday() in [5, 6]:
+                            raise ValueError("Today market is close")
+                        
                         new_lower, new_upper, new_last_close = cloud_area()
                         
                         if new_last_close < new_lower:
@@ -96,11 +104,19 @@ while True:
                 
         elif price_position == "Above the cloud":
             while True:
+                today = datetime.datetime.today()
+                if today.weekday() in [5, 6]:
+                    raise ValueError("Today market is close")
+                
                 change_direction = False
                 lower, upper, last_close = cloud_area()
                 
                 if lower < last_close < upper:
                     while True:
+                        today = datetime.datetime.today()
+                        if today.weekday() in [5, 6]:
+                            raise ValueError("Today market is close")
+                        
                         new_lower, new_upper, new_last_close = cloud_area()
                         
                         if new_last_close < new_lower:
