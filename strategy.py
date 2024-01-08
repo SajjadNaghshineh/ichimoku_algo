@@ -94,7 +94,7 @@ def stop_loss_condition(df, price_position):
         
     last_moving = format_number(str(last_moving))
     
-    sl = last_close - last_moving
+    sl = abs(last_close - last_moving)
     sl = sl / 10
     
     if abs(sl) > 13.5:
