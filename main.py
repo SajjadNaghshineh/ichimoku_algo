@@ -18,9 +18,7 @@ while True:
         
         today = datetime.datetime.today()
         if today.weekday() in [5, 6]:
-            counter = 0
-            time.sleep(5 * 60)
-            continue
+            raise ValueError("Today market is close")
         
         if len(check_cloud) >= 100:
             check_cloud = list(check_cloud[-1])
@@ -159,12 +157,12 @@ while True:
         tz = pytz.timezone("Asia/Tehran")
         now = datetime.datetime.now(tz)
         now = now.strftime("%Y-%m-%d %H:%M:%S")
-        
         print(f"Error: {e} at {now}")
         
         message = f"در ساعت {now} مشکلی برای ربات پیش اومده"
         response = error_sms_alert(info.API_KEY, message)
         print("Error alert sent.")
+        break
     else:
         time.sleep(5 * 60)
         
