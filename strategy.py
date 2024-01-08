@@ -104,26 +104,6 @@ def stop_loss_condition(df, price_position):
         
     return allowed
 
-def sl_tp_calculation(df, price_position):
-    last_candle = df.iloc[-1]
-    last_close = last_candle["close"]
-    
-    if price_position == "Below the cloud":
-        last_moving = last_candle[["ema_21", "ema_50", "ema_100"]].min()
-        
-        sl = last_moving
-        tp = abs(last_close - last_moving)
-        tp = last_close + tp
-        
-    elif price_position == "Above the cloud":
-        last_moving = last_candle[["ema_21", "ema_50", "ema_100"]].max()
-        
-        sl = last_moving
-        tp = abs(last_moving - last_close)
-        tp = last_close - tp
-        
-    return round(sl, 4), round(tp, 4)
-
 def cloud_area():
     df = retreive_data()
     

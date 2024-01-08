@@ -2,6 +2,7 @@ import os
 os.system("cls")
 from mt5_lib import *
 from strategy import *
+from manage_orders import *
 import time
 from error_alert import error_sms_alert
 import info
@@ -75,7 +76,13 @@ while True:
                     
                     if allow_one and allow_two and allow_three and allow_four:
                         sl, tp = sl_tp_calculation(new_df, price_position)
-                        print(f"Buy at price: {price}")
+                        volume = volume_calculation(new_df, price_position)
+                        
+                        order_status = place_order("GBPUSD", "buy", sl, tp, volume)
+                        
+                        if order_status != mt5.TRADE_RETCODE_DONE:
+                            raise ValueError("Trade couldn't be done!")
+                        
                         price_position = "Above the cloud"
                         break
                     
@@ -128,7 +135,13 @@ while True:
                     
                     if allow_one and allow_two and allow_three and allow_four:
                         sl, tp = sl_tp_calculation(new_df, price_position)
-                        print(f"Sell at price: {price}")
+                        volume = volume_calculation(new_df, price_position)
+                        
+                        order_status = place_order("GBPUSD", "sell", sl, tp, volume)
+                        
+                        if order_status != mt5.TRADE_RETCODE_DONE:
+                            raise ValueError("Trade couldn't be done!")
+                        
                         price_position = "Below the cloud"
                         break
                     
