@@ -10,6 +10,7 @@ from error_alert import error_sms_alert
 import info
 
 check_cloud = ["nutral"]
+price_position = "None"
 counter = 0
 
 while True:
@@ -26,7 +27,7 @@ while True:
         if counter >= 100:
             counter = 2
             
-        if counter == 1:
+        if counter == 1 or price_position == "None":
             first_connection, second_connection = run_server(info.USERNAME, info.PASSWORD, info.SERVER, info.PATH)
             
             if not first_connection or not second_connection:

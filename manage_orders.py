@@ -1,5 +1,4 @@
 import MetaTrader5 as mt5
-import sympy as sp
 from utils import format_number
 
 def sl_tp_calculation(df, price_position):
@@ -11,7 +10,7 @@ def sl_tp_calculation(df, price_position):
         
         sl = last_moving
         tp = abs(last_close - last_moving)
-        tp = tp * 1.4
+        # tp = tp * 1.5
         tp = abs(last_close + tp)
         
         sl = float(sl)
@@ -22,7 +21,7 @@ def sl_tp_calculation(df, price_position):
         
         sl = last_moving
         tp = abs(last_moving - last_close)
-        tp = tp * 1.4
+        # tp = tp * 1.5
         tp = abs(last_close - tp)
         
         sl = float(sl)
@@ -33,7 +32,7 @@ def sl_tp_calculation(df, price_position):
 def volume_calculation(df, price_position):
     user_info = mt5.account_info()
     balance = user_info[10]
-    balance = int(balance / 100)
+    one_percent = int(balance / 100)
     
     last_candle = df.iloc[-1]
     last_close = last_candle["close"]
@@ -49,11 +48,7 @@ def volume_calculation(df, price_position):
     sl = abs(last_close - last_moving)
     sl = sl / 10
     
-    x = sp.symbols("x")
-    equation = sp.Eq(balance, sl * x)
-    solution = sp.solve(equation, x)
-    
-    lot_size = eval(str(solution[0]))
+    lot_size = one_percent / sl
     lot_size = lot_size / 10
     
     return round(lot_size, 2)
