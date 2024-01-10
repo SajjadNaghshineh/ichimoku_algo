@@ -58,7 +58,9 @@ def shadow_condition(df, price_position, price):
 def moving_condition(df):
     last_candle = df.iloc[-1]
     
-    if (last_candle["high"] >= last_candle["ema_21"] >= last_candle["low"]) or (last_candle["high"] >= last_candle["ema_50"] >= last_candle["low"]) or (last_candle["high"] >= last_candle["ema_100"] >= last_candle["low"]):
+    if (last_candle["high"] >= last_candle["ema_21"] >= last_candle["low"]) or \
+       (last_candle["high"] >= last_candle["ema_50"] >= last_candle["low"]) or \
+       (last_candle["high"] >= last_candle["ema_100"] >= last_candle["low"]):
         allowed = False
     else:
         allowed = True
