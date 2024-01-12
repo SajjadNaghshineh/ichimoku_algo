@@ -125,7 +125,7 @@ while True:
                             break
                         elif new_last_close > new_upper:
                             if check_cloud[-1] == "below":
-                                price_position = "below the cloud"
+                                price_position = "Below the cloud"
                                 check_cloud.append("above")
                                 change_direction = True
                                 break
@@ -138,7 +138,7 @@ while True:
                     check_cloud.append("below")
                 elif last_close > upper:
                     if check_cloud[-1] == "below":
-                        price_position = "below the cloud"
+                        price_position = "Below the cloud"
                         check_cloud.append("above")
                         change_direction = True
                     else:
