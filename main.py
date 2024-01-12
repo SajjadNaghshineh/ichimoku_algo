@@ -179,6 +179,8 @@ while True:
         message = f"در ساعت {now} مشکلی برای ربات پیش اومده"
         response = error_sms_alert(info.API_KEY, message)
         print("Error alert sent.")
+        
+        os.system("pause")
         break
     else:
         time.sleep(5 * 60)
